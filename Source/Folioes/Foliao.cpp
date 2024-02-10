@@ -45,13 +45,9 @@ void AFoliao::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 }
 
 void AFoliao::Move(const FInputActionValue& Value) {
-	const float DirectionValue = Value.Get<float>();
-	float MovementRateX = 50.f;
-	float MovementRateZ = 25.f;
-	if (Controller && (DirectionValue != 0.f)) {
-		FVector Forward = GetActorForwardVector();
-		Forward.X += MovementRateX;
-		Forward.Z += DirectionValue * MovementRateZ;
-		AddMovementInput(Forward, DirectionValue);
-	}
+	const FVector2D MovementVector = Value.Get<FVector2D>();
+	const FVector Forward = GetActorForwardVector();
+	AddMovementInput(Forward, Forward.X + 5000.f);
+	const FVector UpDown = GetActorRightVector();
+	AddMovementInput(UpDown, MovementVector.X);
 }
