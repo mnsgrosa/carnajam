@@ -46,8 +46,6 @@ void AFoliao::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AFoliao::Move(const FInputActionValue& Value) {
 	const FVector2D MovementVector = Value.Get<FVector2D>();
-	const FVector Forward = GetActorForwardVector();
-	AddMovementInput(Forward, Forward.X + 5000.f);
 	const FVector UpDown = GetActorRightVector();
 	AddMovementInput(UpDown, MovementVector.X);
 }
