@@ -50,3 +50,11 @@ void AFoliao::Move(const FInputActionValue& Value) {
 	//UE_LOG(LogTemp, Warning, TEXT("%s, %s"), *MovementVector.ToString(), *UpDown.ToString());
 	AddMovementInput(UpDown, MovementVector.X);
 }
+
+float AFoliao::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
+	AActor* DamageCauser)
+{
+	// TODO: Kill copies
+	// TODO: Blink meshes ?
+	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+}
