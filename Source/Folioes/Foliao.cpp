@@ -28,18 +28,6 @@ void AFoliao::BeginPlay()
 	
 }
 
-void AFoliao::Move(const FInputActionValue Value) {
-	const float DirectionValue = Value.Get<float>();
-	float MovementRateX = 50.f;
-	float MovementRateZ = 25.f;
-	if (Controller && (DirectionValue != 0.f)) {
-		FVector Forward = GetActorForwardVector();
-		Forward.X += MovementRateX;
-		Forward.Z += DirectionValue * MovementRateZ;
-		AddMovementInput(Forward, DirectionValue);
-	}
-}
-
 // Called every frame
 void AFoliao::Tick(float DeltaTime)
 {
@@ -56,3 +44,14 @@ void AFoliao::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	}
 }
 
+void AFoliao::Move(const FInputActionValue& Value) {
+	const float DirectionValue = Value.Get<float>();
+	float MovementRateX = 50.f;
+	float MovementRateZ = 25.f;
+	if (Controller && (DirectionValue != 0.f)) {
+		FVector Forward = GetActorForwardVector();
+		Forward.X += MovementRateX;
+		Forward.Z += DirectionValue * MovementRateZ;
+		AddMovementInput(Forward, DirectionValue);
+	}
+}

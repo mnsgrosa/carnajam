@@ -11,7 +11,6 @@ class UCapsuleComponent;
 class USkeletalMeshComponent;
 class UInputMappingContext;
 class UInputAction;
-class UInputMappingContext;
 
 UCLASS()
 class FOLIOES_API AFoliao : public ACharacter
@@ -38,7 +37,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputAction* MoveAction;
 
-	void Move(const FInputActionValue& value);
+	void Move(const FInputActionValue& Value);
 
 private:
 	UPROPERTY(VisibleAnywhere)
