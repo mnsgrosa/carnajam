@@ -4,7 +4,19 @@
 #include "FoliaoFollowerAI.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Engine/World.h"
 #include "AIController.h"
+
+
+void AFoliaoFollowerAI::Spawn()
+{
+	for (int i = 0; i < 3; i++) {
+		FVector Location(FMath::RandRange(50.0f, 400.0f), FMath::FRandRange(0.0f, 400.0f), 190.0f);
+		FRotator Rotation(0.0f, 0.0f, 0.0f);
+		FActorSpawnParameters SpawnInfo;
+		GetWorld()->SpawnActor<AFoliaoFollowerAI>(Location, Rotation, SpawnInfo);
+	}
+}
 
 // Sets default values
 AFoliaoFollowerAI::AFoliaoFollowerAI()
@@ -23,6 +35,8 @@ void AFoliaoFollowerAI::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	Spawn();
+
 	if (FollowingTarget == nullptr) return;
 	
 	FollowerController = Cast<AAIController>(GetController());
@@ -40,7 +54,9 @@ void AFoliaoFollowerAI::BeginPlay()
 		const FVector& Location = Point.Location;
 		DrawDebugSphere(GetWorld(), Location, 12.f, 12, FColor::Green, false, 10.f);
 	}
+	
 }
+
 
 // Called every frame
 void AFoliaoFollowerAI::Tick(float DeltaTime)
@@ -56,4 +72,3 @@ void AFoliaoFollowerAI::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
-

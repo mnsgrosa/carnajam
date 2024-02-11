@@ -39,6 +39,11 @@ public:
 	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
 	AActor* FollowingTarget;
 
+	/*
+	* Spawner
+	*/
+	
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -55,4 +60,5 @@ private:
 	bool bMoveToPlayer;
 	void MoveToPlayer();
 	void StartChasingPlayer();
+	void Spawn();
 };
