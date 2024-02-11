@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Operation.h"
 #include "GameFramework/Actor.h"
 #include "Obstacle.generated.h"
 
+enum EOperation : int;
 class UBoxComponent;
 
 UCLASS()
@@ -19,9 +21,12 @@ public:
 	
 	UPROPERTY(EditAnywhere)
 	float Speed;
-
+	
 	UPROPERTY(EditAnywhere)
-	int Damage;
+	TEnumAsByte<EOperation> Operation = EOperation::Sum;
+	
+	UPROPERTY(EditAnywhere)
+	int Amount;
 
 protected:
 	virtual void BeginPlay() override;

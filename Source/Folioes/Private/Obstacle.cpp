@@ -30,7 +30,14 @@ void AObstacle::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* O
 {
 	if (AFoliao* Foliao = Cast<AFoliao>(OtherActor))
 	{
-		Foliao->TakeDamage(Damage, FDamageEvent(), GetInstigatorController(), this);
+		if (Operation == EOperation::Subtract)
+		{
+			Foliao->TakeDamage(Amount, FDamageEvent(), GetInstigatorController(), this);
+		}
+		else if (Operation == EOperation::Sum)
+		{
+			//Foliao->AddFollower(Amount);
+		}
 	}
 }
 
