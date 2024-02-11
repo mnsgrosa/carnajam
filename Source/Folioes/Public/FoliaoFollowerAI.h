@@ -11,6 +11,8 @@ class UBoxComponent;
 class UAnimMontage;
 class AEnemyController;
 class UNavigationSystemV1;
+class AActor;
+class AAIController;
 
 UCLASS()
 class FOLIOES_API AFoliaoFollowerAI : public ACharacter
@@ -27,6 +29,15 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	
 	USphereComponent* GetDetectPlayerCollisionSphere();
+
+	/*
+	* Navigation
+	*/
+	UPROPERTY()
+	AAIController FollowerController;
+
+	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
+	AActor* FollowingTarget;
 
 protected:
 	// Called when the game starts or when spawned
