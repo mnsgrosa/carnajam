@@ -3,9 +3,7 @@
 
 #include "FoliaoFollowerAI.h"
 #include "Components/SphereComponent.h"
-#include "Components/BoxComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Kismet/GameplayStatics.h"
 #include "AIController.h"
 
 // Sets default values
@@ -25,18 +23,22 @@ void AFoliaoFollowerAI::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	if (FollowingTarget == nullptr) return;
+	
 	FollowerController = Cast<AAIController>(GetController());
-	if (FollowerController) {
-		FAIMoveRequest MoveRequest;
-		MoveRequest.SetGoalActor(FollowingTarget);
-		MoveRequest.SetAcceptanceRadius(15.f);
-		FNavPathSharedPtr NavPath;
-		FollowerController->MoveTo(MoveRequest, &NavPath);
-		TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
-		for (auto& Point : PathPoints) {
-			const FVector& Location = Point.Location;
-			DrawDebugSphere(GetWorld(), Location, 12.f, 12, FColor::Green, false, 10.f);
-		}
+	
+	if (FollowerController == nullptr) return;
+	
+	FAIMoveRequest MoveRequest;
+	MoveRequest.SetGoalActor(FollowingTarget);
+	MoveRequest.SetAcceptanceRadius(15.f);
+
+	FNavPathSharedPtr NavPath;
+	FollowerController->MoveTo(MoveRequest, &NavPath);
+	TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
+	for (auto& Point : PathPoints) {
+		const FVector& Location = Point.Location;
+		DrawDebugSphere(GetWorld(), Location, 12.f, 12, FColor::Green, false, 10.f);
 	}
 }
 

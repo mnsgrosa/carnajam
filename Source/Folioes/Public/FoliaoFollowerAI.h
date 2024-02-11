@@ -34,7 +34,7 @@ public:
 	* Navigation
 	*/
 	UPROPERTY()
-	AAIController FollowerController;
+	AAIController* FollowerController;
 
 	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
 	AActor* FollowingTarget;
