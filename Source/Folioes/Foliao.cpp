@@ -72,8 +72,6 @@ void AFoliao::AddFollower(int Amount)
 	if (World == nullptr) return;
 	
 	for (int i = 0; i < Amount; i++) {
-		// TODO: Spawn behind foliao
-
 		const AActor* Reference = this;
 
 		if (LastFollower != nullptr)
