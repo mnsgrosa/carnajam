@@ -39,9 +39,8 @@ public:
 	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
 	AActor* FollowingTarget;
 
-	/*
-	* Spawner
-	*/
+	void SetTarget(AActor* Target);
+	void Kill(int Amount);
 
 protected:
 	// Called when the game starts or when spawned
@@ -59,10 +58,6 @@ private:
 	bool bMoveToPlayer;
 	void MoveToPlayer();
 	void StartChasingPlayer();
-	void Spawn();
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;
-	
-	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<AFoliaoFollowerAI> FollowerClass;
 };

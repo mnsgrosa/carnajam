@@ -2,11 +2,11 @@
 
 
 #include "Foliao.h"
-#include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/InputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "FoliaoFollowerAI.h"
 
 // Sets default values
 AFoliao::AFoliao()
@@ -54,7 +54,49 @@ void AFoliao::Move(const FInputActionValue& Value) {
 float AFoliao::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator,
 	AActor* DamageCauser)
 {
-	// TODO: Kill copies
-	// TODO: Blink meshes ?
+	if (LastFollower == nullptr)
+	{
+		// TODO: Game Over
+	} else
+	{
+		// TODO: Blink Meshes (?)
+		LastFollower->Kill(DamageAmount);
+	}
 	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
+}
+
+void AFoliao::AddFollower(int Amount)
+{
+	UWorld* World = GetWorld();
+	
+	if (World == nullptr) return;
+	
+	for (int i = 0; i < Amount; i++) {
+		// TODO: Spawn behind foliao
+
+		const AActor* Reference = this;
+
+		if (LastFollower != nullptr)
+		{
+			Reference  = LastFollower;
+		}
+		
+		FVector Location(Reference->GetActorLocation() + Reference->GetActorForwardVector() * -10);
+		FActorSpawnParameters SpawnParameters;
+		
+		AActor* Actor = World->SpawnActor<AActor>(FollowerClass, Location, GetActorRotation(), SpawnParameters);
+
+		if (AFoliaoFollowerAI* Follower = Cast<AFoliaoFollowerAI>(Actor))
+		{
+			if (LastFollower == nullptr)
+			{
+				Follower->SetTarget(this);
+			} else
+			{
+				Follower->SetTarget(LastFollower);
+			}
+			
+			LastFollower = Follower;
+		}
+	}
 }

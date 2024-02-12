@@ -7,17 +7,6 @@
 #include "Engine/World.h"
 #include "AIController.h"
 
-
-void AFoliaoFollowerAI::Spawn()
-{
-	for (int i = 0; i < 3; i++) {
-		FVector Location(FMath::RandRange(50.0f, 400.0f), FMath::FRandRange(0.0f, 400.0f), 190.0f);
-		FRotator Rotation(0.0f, 0.0f, 0.0f);
-		FActorSpawnParameters SpawnParameters;
-		GetWorld()->SpawnActor<AActor>(FollowerClass, Location, Rotation, SpawnParameters);
-	}
-}
-
 // Sets default values
 AFoliaoFollowerAI::AFoliaoFollowerAI()
 {
@@ -31,13 +20,29 @@ AFoliaoFollowerAI::AFoliaoFollowerAI()
 
 }
 
+void AFoliaoFollowerAI::SetTarget(AActor* Target)
+{
+	FollowingTarget = Target;
+}
+
+void AFoliaoFollowerAI::Kill(int Amount)
+{
+	// TODO: Use object pooling
+	
+	if (Amount - 1 > 0)
+	{
+		if (AFoliaoFollowerAI* Target = Cast<AFoliaoFollowerAI>(FollowingTarget))
+		Target->Kill(Amount - 1);
+	}
+	
+	Destroy();
+}
+
 // Called when the game starts or when spawned
 void AFoliaoFollowerAI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	//Spawn();
-
 	if (FollowingTarget == nullptr) return;
 	
 	FollowerController = Cast<AAIController>(GetController());

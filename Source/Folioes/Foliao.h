@@ -7,6 +7,7 @@
 #include "InputActionValue.h"
 #include "Foliao.generated.h"
 
+class AFoliaoFollowerAI;
 class UCapsuleComponent;
 class USkeletalMeshComponent;
 class UInputMappingContext;
@@ -26,6 +27,8 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	virtual float TakeDamage(float DamageAmount, struct FDamageEvent const & DamageEvent, class AController * EventInstigator, AActor * DamageCauser) override;
+
+	void AddFollower(int Amount);
 
 
 protected:
@@ -47,4 +50,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* FoliaoMesh;
 
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AFoliaoFollowerAI> FollowerClass;
+
+	UPROPERTY()
+	AFoliaoFollowerAI* LastFollower;
 };

@@ -36,7 +36,7 @@ void AOperationZone::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AAct
 		}
 		else if (Operation == EOperation::Sum)
 		{
-			//Foliao->AddFollower(Amount);
+			Foliao->AddFollower(Amount);
 		}
 	}
 }
