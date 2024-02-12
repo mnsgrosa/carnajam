@@ -42,6 +42,9 @@ public:
 	void SetTarget(AActor* Target);
 	void Kill(int Amount);
 
+	int32 CountdownTime;
+	FTimerHandle CountdownTimerHandle;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -60,4 +63,6 @@ private:
 	void StartChasingPlayer();
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;
+	void AdvanceTime();
+	void CountdownHasFinished();
 };

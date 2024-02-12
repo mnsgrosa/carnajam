@@ -12,7 +12,7 @@
 AFoliao::AFoliao()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 }
 
@@ -25,6 +25,8 @@ void AFoliao::BeginPlay()
 			Subsystem->AddMappingContext(FoliaoMappingContext, 0);
 		}
 	}
+	CountdownTime = 3;
+	GetWorldTimerManager().SetTimer(CountdownTimerHandle, this, &AFoliao::AdvanceTimer, 1.0f, true);
 	
 }
 
@@ -97,4 +99,17 @@ void AFoliao::AddFollower(int Amount)
 			LastFollower = Follower;
 		}
 	}
+}
+
+
+void AFoliao::AdvanceTimer() {
+	if (CountdownTime < 1) {
+		GetWorldTimerManager().ClearTimer(CountdownTimerHandle);
+		CountdownHasFinished();
+	}
+}
+
+void AFoliao::CountdownHasFinished()
+{
+	AddFollower(10);
 }

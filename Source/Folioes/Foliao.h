@@ -43,6 +43,11 @@ protected:
 
 	void Move(const FInputActionValue& Value);
 
+	UPROPERTY(EditAnywhere)
+	FTimerHandle CountdownTimerHandle;
+	
+	int32 CountdownTime;
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;
@@ -55,4 +60,7 @@ private:
 
 	UPROPERTY()
 	AFoliaoFollowerAI* LastFollower;
+
+	void AdvanceTimer();
+	void CountdownHasFinished();
 };
