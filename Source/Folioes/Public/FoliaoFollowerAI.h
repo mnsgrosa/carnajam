@@ -62,7 +62,7 @@ private:
 	void Spawn();
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;
-
-	UPROPERTY(VisibleAnywhere)
-	USkeletalMeshComponent* FollowerMesh;
+	
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<AFoliaoFollowerAI> FollowerClass;
 };

@@ -1,13 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "Folioes/Public/Obstacle.h"
+#include "..\Public\OperationZone.h"
 
 #include "Components/BoxComponent.h"
 #include "Engine/DamageEvents.h"
 #include "Folioes/Foliao.h"
 
-AObstacle::AObstacle()
+AOperationZone::AOperationZone()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	
@@ -18,14 +18,14 @@ AObstacle::AObstacle()
 	BoxCollision->SetupAttachment(RootComponent);
 }
 
-void AObstacle::BeginPlay()
+void AOperationZone::BeginPlay()
 {
 	Super::BeginPlay();
-	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AObstacle::OnBoxBeginOverlap);
+	BoxCollision->OnComponentBeginOverlap.AddDynamic(this, &AOperationZone::OnBoxBeginOverlap);
 
 }
 
-void AObstacle::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+void AOperationZone::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	if (AFoliao* Foliao = Cast<AFoliao>(OtherActor))
@@ -41,7 +41,7 @@ void AObstacle::OnBoxBeginOverlap(UPrimitiveComponent* OverlappedComp, AActor* O
 	}
 }
 
-void AObstacle::Tick(float DeltaTime)
+void AOperationZone::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 

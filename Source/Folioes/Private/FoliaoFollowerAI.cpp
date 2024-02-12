@@ -13,8 +13,8 @@ void AFoliaoFollowerAI::Spawn()
 	for (int i = 0; i < 3; i++) {
 		FVector Location(FMath::RandRange(50.0f, 400.0f), FMath::FRandRange(0.0f, 400.0f), 190.0f);
 		FRotator Rotation(0.0f, 0.0f, 0.0f);
-		FActorSpawnParameters SpawnInfo;
-		GetWorld()->SpawnActor<AFoliaoFollowerAI>(Location, Rotation, SpawnInfo);
+		FActorSpawnParameters SpawnParameters;
+		GetWorld()->SpawnActor<AActor>(FollowerClass, Location, Rotation, SpawnParameters);
 	}
 }
 
@@ -29,9 +29,6 @@ AFoliaoFollowerAI::AFoliaoFollowerAI()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->MaxWalkSpeed = 590.0f;
 
-	FollowerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Follower Mesh"));
-	FollowerMesh->SetupAttachment(GetRootComponent());
-
 }
 
 // Called when the game starts or when spawned
@@ -39,7 +36,7 @@ void AFoliaoFollowerAI::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	Spawn();
+	//Spawn();
 
 	if (FollowingTarget == nullptr) return;
 	

@@ -5,18 +5,18 @@
 #include "CoreMinimal.h"
 #include "Operation.h"
 #include "GameFramework/Actor.h"
-#include "Obstacle.generated.h"
+#include "OperationZone.generated.h"
 
-enum EOperation : int;
+enum EOperation;
 class UBoxComponent;
 
 UCLASS()
-class FOLIOES_API AObstacle : public AActor
+class FOLIOES_API AOperationZone : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	AObstacle();
+	AOperationZone();
 	virtual void Tick(float DeltaTime) override;
 	
 	UPROPERTY(EditAnywhere)
