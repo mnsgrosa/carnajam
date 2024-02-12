@@ -7,6 +7,9 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "FoliaoFollowerAI.h"
+#include "Blueprint/UserWidget.h"
+#include "Kismet/GameplayStatics.h"
+#include "UI/FoliaoWidget.h"
 
 // Sets default values
 AFoliao::AFoliao()
@@ -20,13 +23,23 @@ AFoliao::AFoliao()
 void AFoliao::BeginPlay()
 {
 	Super::BeginPlay();
+	
 	if (APlayerController* PlayerController = Cast<APlayerController>(GetController())) {
 		if(UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer())){
 			Subsystem->AddMappingContext(FoliaoMappingContext, 0);
 		}
 	}
+	
 	CountdownTime = 3;
-	GetWorldTimerManager().SetTimer(CountdownTimerHandle, this, &AFoliao::AdvanceTimer, 1.0f, true);
+	//GetWorldTimerManager().SetTimer(CountdownTimerHandle, this, &AFoliao::AdvanceTimer, 1.0f, true);
+
+	if (const UWorld* World = GetWorld(); WidgetClass && World)
+	{
+		FoliaoWidget = CreateWidget<UFoliaoWidget>(UGameplayStatics::GetPlayerController(World, 0), WidgetClass, TEXT("InteractionUI"));
+		FoliaoWidget->AddToViewport(0);
+		FoliaoWidget->UpdateFollowersCount(1);
+		FoliaoWidget->UpdateScore(0);
+	}
 	
 }
 
@@ -62,6 +75,8 @@ float AFoliao::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, A
 	} else
 	{
 		// TODO: Blink Meshes (?)
+		FollowerCount -= DamageAmount;
+		FoliaoWidget->UpdateFollowersCount(FollowerCount);
 		LastFollower->Kill(DamageAmount);
 	}
 	return Super::TakeDamage(DamageAmount, DamageEvent, EventInstigator, DamageCauser);
@@ -69,6 +84,9 @@ float AFoliao::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, A
 
 void AFoliao::AddFollower(int Amount)
 {
+	FollowerCount += Amount;
+	FoliaoWidget->UpdateFollowersCount(FollowerCount);
+
 	UWorld* World = GetWorld();
 	
 	if (World == nullptr) return;

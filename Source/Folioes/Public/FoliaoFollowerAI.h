@@ -61,8 +61,8 @@ private:
 	bool bMoveToPlayer;
 	void MoveToTarget();
 	void StartChasingPlayer();
-	UPROPERTY(VisibleAnywhere)
-	UCapsuleComponent* Capsule;
+	//UPROPERTY(VisibleAnywhere)
+	//UCapsuleComponent* Capsule;
 	void AdvanceTime();
 	void CountdownHasFinished();
 };

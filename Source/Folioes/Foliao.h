@@ -7,6 +7,7 @@
 #include "InputActionValue.h"
 #include "Foliao.generated.h"
 
+class UFoliaoWidget;
 class AFoliaoFollowerAI;
 class UCapsuleComponent;
 class USkeletalMeshComponent;
@@ -48,6 +49,13 @@ protected:
 	
 	int32 CountdownTime;
 
+	UPROPERTY(EditDefaultsOnly)
+    TSubclassOf<UUserWidget> WidgetClass;
+	
+	UPROPERTY()
+	UFoliaoWidget* FoliaoWidget;
+
+
 private:
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;
@@ -60,6 +68,8 @@ private:
 
 	UPROPERTY()
 	AFoliaoFollowerAI* LastFollower;
+
+	int FollowerCount = 1;
 
 	void AdvanceTimer();
 	void CountdownHasFinished();
