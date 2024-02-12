@@ -28,6 +28,10 @@ AFoliaoFollowerAI::AFoliaoFollowerAI()
 	DetectPlayerCollisionSphere->SetupAttachment(RootComponent);
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->MaxWalkSpeed = 590.0f;
+
+	FollowerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Follower Mesh"));
+	FollowerMesh->SetupAttachment(GetRootComponent());
+
 }
 
 // Called when the game starts or when spawned

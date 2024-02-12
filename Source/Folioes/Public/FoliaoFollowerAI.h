@@ -42,7 +42,6 @@ public:
 	/*
 	* Spawner
 	*/
-	
 
 protected:
 	// Called when the game starts or when spawned
@@ -61,4 +60,9 @@ private:
 	void MoveToPlayer();
 	void StartChasingPlayer();
 	void Spawn();
+	UPROPERTY(VisibleAnywhere)
+	UCapsuleComponent* Capsule;
+
+	UPROPERTY(VisibleAnywhere)
+	USkeletalMeshComponent* FollowerMesh;
 };
