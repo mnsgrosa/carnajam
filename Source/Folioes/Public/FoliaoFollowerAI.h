@@ -59,7 +59,7 @@ private:
 	FVector RandomLocation = FVector();
 
 	bool bMoveToPlayer;
-	void MoveToPlayer();
+	void MoveToTarget();
 	void StartChasingPlayer();
 	UPROPERTY(VisibleAnywhere)
 	UCapsuleComponent* Capsule;

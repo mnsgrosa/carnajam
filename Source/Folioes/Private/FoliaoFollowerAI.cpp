@@ -12,7 +12,7 @@
 AFoliaoFollowerAI::AFoliaoFollowerAI()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = false;
+	PrimaryActorTick.bCanEverTick = true;
 
 	DetectPlayerCollisionSphere = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionSphere"));
 	DetectPlayerCollisionSphere->SetupAttachment(RootComponent);
@@ -39,17 +39,12 @@ void AFoliaoFollowerAI::Kill(int Amount)
 	Destroy();
 }
 
-// Called when the game starts or when spawned
 void AFoliaoFollowerAI::BeginPlay()
 {
 	Super::BeginPlay();
-	FTimerHandle UnusedHandle;
-	GetWorldTimerManager().SetTimer(CountdownTimerHandle, this, &AFoliaoFollowerAI::MoveToPlayer, 1.0f, true);
-
-	
 }
 
-void AFoliaoFollowerAI::MoveToPlayer()
+void AFoliaoFollowerAI::MoveToTarget()
 {
 	if (FollowingTarget == nullptr) return;
 
@@ -63,35 +58,23 @@ void AFoliaoFollowerAI::MoveToPlayer()
 
 	FNavPathSharedPtr NavPath;
 	FollowerController->MoveTo(MoveRequest, &NavPath);
-	TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
-	for (auto& Point : PathPoints) {
-		const FVector& Location = Point.Location;
-		DrawDebugSphere(GetWorld(), Location, 12.f, 12, FColor::Green, false, 10.f);
+	
+	if (NavPath.IsValid())
+	{
+		TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
+		for (auto& Point : PathPoints) {
+			const FVector& Location = Point.Location;
+			DrawDebugSphere(GetWorld(), Location, 12.f, 12, FColor::Green, false, 10.f);
+		}
 	}
 }
-
-
-
-void AFoliaoFollowerAI::AdvanceTime()
-{
-	if (CountdownTime < 1) {
-		GetWorldTimerManager().ClearTimer(CountdownTimerHandle);
-		MoveToPlayer();
-	}
-}
-
-void AFoliaoFollowerAI::CountdownHasFinished()
-{
-	MoveToPlayer();
-}
-
 
 // Called every frame
 void AFoliaoFollowerAI::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	
+	MoveToTarget();
 }
 
 // Called to bind functionality to input
