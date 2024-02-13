@@ -102,9 +102,11 @@ void AFoliao::AddFollower(int Amount)
 		FVector Location(Reference->GetActorLocation() + Reference->GetActorForwardVector() * -10);
 		FActorSpawnParameters SpawnParameters;
 		
-		AActor* Actor = World->SpawnActor<AActor>(FollowerClass, Location, GetActorRotation(), SpawnParameters);
-
-		if (AFoliaoFollowerAI* Follower = Cast<AFoliaoFollowerAI>(Actor))
+		ACharacter* FollowerCharacter = World->SpawnActor<ACharacter>(FollowerClass, Location, GetActorRotation(), SpawnParameters);
+		
+		FollowerCharacter->SpawnDefaultController();
+		
+		if (AFoliaoFollowerAI* Follower = Cast<AFoliaoFollowerAI>(FollowerCharacter))
 		{
 			if (LastFollower == nullptr)
 			{
