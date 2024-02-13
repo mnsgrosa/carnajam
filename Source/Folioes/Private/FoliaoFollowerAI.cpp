@@ -19,6 +19,8 @@ AFoliaoFollowerAI::AFoliaoFollowerAI()
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->MaxWalkSpeed = 590.0f;
 	CountdownTime = 3;
+
+	AIControllerClass = AAIController::StaticClass();
 }
 
 void AFoliaoFollowerAI::SetTarget(AActor* Target)
@@ -42,14 +44,14 @@ void AFoliaoFollowerAI::Kill(int Amount)
 void AFoliaoFollowerAI::BeginPlay()
 {
 	Super::BeginPlay();
+
+	FollowerController = Cast<AAIController>( GetController());
 }
 
 void AFoliaoFollowerAI::MoveToTarget()
 {
 	if (FollowingTarget == nullptr) return;
-
-	FollowerController = Cast<AAIController>(GetController());
-
+		
 	if (FollowerController == nullptr) return;
 
 	FAIMoveRequest MoveRequest;

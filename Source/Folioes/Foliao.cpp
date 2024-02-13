@@ -2,6 +2,8 @@
 
 
 #include "Foliao.h"
+
+#include "AIController.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/InputComponent.h"
 #include "EnhancedInputSubsystems.h"
@@ -16,7 +18,6 @@ AFoliao::AFoliao()
 {
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
-
 }
 
 // Called when the game starts or when spawned
@@ -99,7 +100,7 @@ void AFoliao::AddFollower(int Amount)
 			Reference  = LastFollower;
 		}
 		
-		FVector Location(Reference->GetActorLocation() + Reference->GetActorForwardVector() * -10);
+		FVector Location(Reference->GetActorLocation() + Reference->GetActorForwardVector() * -200);
 		FActorSpawnParameters SpawnParameters;
 		
 		ACharacter* FollowerCharacter = World->SpawnActor<ACharacter>(FollowerClass, Location, GetActorRotation(), SpawnParameters);

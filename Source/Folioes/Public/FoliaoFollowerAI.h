@@ -36,7 +36,7 @@ public:
 	UPROPERTY()
 	AAIController* FollowerController;
 
-	UPROPERTY(EditInstanceOnly, Category = "AI Navigation")
+	UPROPERTY(VisibleInstanceOnly, Category = "AI Navigation")
 	AActor* FollowingTarget;
 
 	void SetTarget(AActor* Target);
