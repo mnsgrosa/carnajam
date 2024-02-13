@@ -54,6 +54,11 @@ void AFoliaoFollowerAI::MoveToTarget()
 	if (FollowerController == nullptr) return;
 
 	FAIMoveRequest MoveRequest;
+	
+	FVector GoalLocation = GetActorLocation();
+	GoalLocation.X = FollowingTarget->GetActorLocation().X;
+	MoveRequest.SetGoalLocation(GoalLocation);
+	
 	MoveRequest.SetGoalActor(FollowingTarget);
 	MoveRequest.SetAcceptanceRadius(AcceptanceRadius);
 
