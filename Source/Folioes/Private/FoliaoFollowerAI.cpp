@@ -63,10 +63,10 @@ void AFoliaoFollowerAI::MoveToTarget()
 	FNavPathSharedPtr NavPath;
 	FollowerController->MoveTo(MoveRequest, &NavPath);
 	
-	UE_LOG(LogTemp, Warning, TEXT("MoveToTarget"));
+	//UE_LOG(LogTemp, Warning, TEXT("MoveToTarget"));
 	if (NavPath.IsValid())
 	{
-		UE_LOG(LogTemp, Warning, TEXT("NavPath OK"));
+		//UE_LOG(LogTemp, Warning, TEXT("NavPath OK"));
 		TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
 		for (auto& Point : PathPoints) {
 			const FVector& Location = Point.Location;
