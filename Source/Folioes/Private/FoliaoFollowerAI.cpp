@@ -51,18 +51,19 @@ void AFoliaoFollowerAI::BeginPlay()
 void AFoliaoFollowerAI::MoveToTarget()
 {
 	if (FollowingTarget == nullptr) return;
-		
 	if (FollowerController == nullptr) return;
 
 	FAIMoveRequest MoveRequest;
 	MoveRequest.SetGoalActor(FollowingTarget);
-	MoveRequest.SetAcceptanceRadius(15.f);
+	MoveRequest.SetAcceptanceRadius(AcceptanceRadius);
 
 	FNavPathSharedPtr NavPath;
 	FollowerController->MoveTo(MoveRequest, &NavPath);
 	
+	UE_LOG(LogTemp, Warning, TEXT("MoveToTarget"));
 	if (NavPath.IsValid())
 	{
+		UE_LOG(LogTemp, Warning, TEXT("NavPath OK"));
 		TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
 		for (auto& Point : PathPoints) {
 			const FVector& Location = Point.Location;

@@ -58,6 +58,9 @@ private:
 	UNavigationSystemV1* NavArea;
 	FVector RandomLocation = FVector();
 
+	UPROPERTY(EditDefaultsOnly)
+	float AcceptanceRadius = 15.f;
+	
 	bool bMoveToPlayer;
 	void MoveToTarget();
 	void StartChasingPlayer();
