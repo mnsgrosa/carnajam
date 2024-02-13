@@ -58,8 +58,6 @@ void AFoliaoFollowerAI::MoveToTarget()
 	FVector GoalLocation = GetActorLocation();
 	GoalLocation.X = FollowingTarget->GetActorLocation().X;
 	MoveRequest.SetGoalLocation(GoalLocation);
-	
-	MoveRequest.SetGoalActor(FollowingTarget);
 	MoveRequest.SetAcceptanceRadius(AcceptanceRadius);
 
 	FNavPathSharedPtr NavPath;
@@ -72,7 +70,7 @@ void AFoliaoFollowerAI::MoveToTarget()
 		TArray<FNavPathPoint>& PathPoints = NavPath->GetPathPoints();
 		for (auto& Point : PathPoints) {
 			const FVector& Location = Point.Location;
-			DrawDebugSphere(GetWorld(), Location, 12.f, 12, FColor::Green, false, 10.f);
+			DrawDebugSphere(GetWorld(), Location, 12.f, 12, FColor::Green, false, 5.f);
 		}
 	}
 }
